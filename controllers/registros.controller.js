@@ -1,8 +1,8 @@
 const db = require("../models");
-const Estoque = db.estoque;
+const registros = db.registros;
 const Op = db.Sequelize.Op;
 
-// Cria e salva um novo estoque
+// Cria e salva um novo registro
 exports.create = (req, res) => {
 };
 
