@@ -1,5 +1,5 @@
 const db = require("../models");
-const Estoque = db.estoque;
+const Registros = db.registros;
 const Op = db.Sequelize.Op;
 
 // Cria e salva um novo doador
