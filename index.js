@@ -24,3 +24,10 @@ console.log("Synced db.");
 console.log("Failed to sync db: " + err.message);
 });
 
+require("./routes/doador.route")(app);
+require("./routes/enfermeiro.route")(app);
+require("./routes/registros.route")(app);
+
+app.listen(8000, function (req, res) {
+  console.log("App rodando na porta 8000");
+});
