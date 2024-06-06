@@ -11,9 +11,10 @@ exports.create = (req, res) => {
     return;
     }
     // Criar um registro
-    const registro = {
+    const registros = {
     QuantidadeDoada: req.body.QuantidadeDoada,
     Tipo: req.body.Tipo,
+    Numero: req.body.Numero,
     doadorId: req.body.doadorId,
     enfermeiroId: req.body.enfermeiroId,
     };
@@ -25,110 +26,110 @@ exports.create = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Erro durante a criação do Doador.",
+        message: err.message || "Erro durante a criação do registro.",
       });
     });
 };
 
-// Retorna todos os doadores do banco de dados. Podemos passar um parâmetro e filtrar
+// Retorna todos os registros do banco de dados. Podemos passar um parâmetro e filtrar
 exports.findAll = (req, res) => {
-  const nome = req.query.nome;
-  var condition = nome ? { nome: { [Op.iLike]: `%${nome}%` } } : null;
+  const Numero = req.query.Numero;
+  var condition = Numero ? { Numero: { [Op.iLike]: `%${Numero}%` } } : null;
 
-  Doador.findAll({ where: condition })
+  Registros.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Erro durante a procura pelo doador.",
+        message: err.message || "Erro durante a procura pelo registro.",
       });
     });
 };
 
-// Encontra um doador pelo id
+// Encontra um registro pelo Numero
 exports.findOne = (req, res) => {
-  const id = req.params.id;
+  const Numero = req.params.Numero;
 
-  Doador.findByPk(id)
+  Registros.findByPk(Numero)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Não é possível achar o doador com o id=${id}.`,
+          message: `Não é possível achar o registro com o Numero=${Numero}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Erro na busca pelo doador via id=" + id,
+        message: "Erro na busca pelo registro via Numero=" + Numero,
       });
     });
 };
 
-// Atualiza os dados do doador
+// Atualiza os dados do registro
 exports.update = (req, res) => {
-  const id = req.params.id;
+  const Numero = req.params.Numero;
 
-  Doador.update(req.body, {
-    where: { id: id },
+  Registro.update(req.body, {
+    where: { Numero: Numero },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Doador foi atualizado com sucesso.",
+          message: "Registro foi atualizado com sucesso.",
         });
       } else {
         res.send({
-          message: `Não foi possível atualizar o doador com id=${id}. Talvez o doador não tenha sido encontrada ou req.body está vazio!`,
+          message: `Não foi possível atualizar o registro com numero=${Numero}. Talvez o registro não tenha sido encontrada ou req.body está vazio!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Erro em atualizar o doador via id=" + id,
+        message: "Erro em atualizar o registro via numero=" + Numero,
       });
     });
 };
 
-// Deleta um doador pelo id
+// Deleta um registro pelo numero
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const Numero = req.params.Numero;
 
-  Doador.destroy({
-    where: { id: id },
+  Registros.destroy({
+    where: { Numero: Numero },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Doador foi deletada com sucesso!",
+          message: "Registro foi deletado com sucesso!",
         });
       } else {
         res.send({
-          message: `Não é possível deletar esse doador; Ele não foi encontrada!`,
+          message: `Não é possível deletar esse registro; Ele não foi encontrado!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Não é possível deletar o doador com id=" + id,
+        message: "Não é possível deletar o registro com Numero=" + Numero,
       });
     });
 };
 
-// Deleta todos os doadores do banco de dados
+// Deleta todos os registros do banco de dados
 exports.deleteAll = (req, res) => {
-  Doador.destroy({
+  Registros.destroy({
     where: {},
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} Doadores foram deletadas com sucesso!` });
+      res.send({ message: `${nums} Registros foram deletados com sucesso!` });
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Erro enquanto deletava os doadores.",
+        message: err.message || "Erro enquanto deletava os registros.",
       });
     });
 };
