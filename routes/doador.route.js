@@ -13,6 +13,6 @@ router.put("/:id", doador.update);
 router.delete("/:id", doador.delete);
 // Rota para deletar todos os doadores
 router.delete("/", doador.deleteAll);
-// A linha abaixo informa que todas essas rotas são encontradas após o /doadores. Isto é, localhost:8080/doadores/rota
-app.use("/doadores", router);
+// A linha abaixo informa que todas essas rotas são encontradas após o /doador. Isto é, localhost:8080/doador/rota
+app.use("/doador", router);
 };
